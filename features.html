@@ -1,0 +1,1137 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Kenesto   Product Features</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --blue:       #1B4091;
+      --blue-dark:  #163474;
+      --navy:       #1B3F8F;
+      --orange:     #F26522;
+      --heading:    #1B4091;
+      --text-dark:  #555;
+      --text-mid:   #666;
+      --text-light: #888;
+      --bg-page:    #f7f9ff;
+      --bg-light:   #f0f4fb;
+      --white:      #fff;
+      --border:     #dde3f0;
+      /* Dialog chrome colours – matched from screenshots */
+      --dlg-bar:    #555;
+      --dlg-k:      #E87722;
+    }
+    *,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+    html{scroll-behavior:smooth;}
+    body{font-family:'Open Sans',Arial,sans-serif;font-size:14px;line-height:1.7;
+         color:var(--text-dark);background:var(--bg-page);overflow-x:hidden;}
+
+    /* NAV removed – page is embedded as iframe */
+
+    /* ── HERO ── */
+    .hero{background:linear-gradient(135deg,var(--bg-light) 0%,var(--bg-page) 100%);
+          border-bottom:1px solid var(--border);padding:70px 32px 60px;text-align:center;}
+    .hero-badge{display:inline-flex;align-items:center;gap:6px;background:#fff;
+                border:1px solid var(--border);border-radius:20px;padding:4px 16px;
+                font-size:11px;font-weight:700;color:var(--blue);letter-spacing:.5px;
+                text-transform:uppercase;margin-bottom:20px;}
+    .hero h1{font-size:42px;font-weight:700;color:var(--heading);line-height:1.2;
+             max-width:720px;margin:0 auto 16px;}
+    .hero h1 .accent{color:var(--orange);}
+    .hero p{font-size:16px;color:var(--text-mid);max-width:560px;margin:0 auto 36px;line-height:1.8;}
+    .hero-ctas{display:flex;gap:14px;justify-content:center;flex-wrap:wrap;}
+    .btn{display:inline-block;padding:12px 32px;border-radius:4px;font-size:14px;font-weight:600;
+         text-decoration:none;border:2px solid transparent;transition:all .2s;}
+    .btn-primary{background:var(--blue);border-color:var(--blue);color:#fff;}
+    .btn-primary:hover{background:var(--blue-dark);border-color:var(--blue-dark);}
+    .btn-outline{border-color:var(--blue);color:var(--blue);background:transparent;}
+    .btn-outline:hover{background:var(--blue);color:#fff;}
+    .hero-chips{display:flex;gap:8px;flex-wrap:wrap;justify-content:center;margin-top:28px;}
+    .hero-chip{display:flex;align-items:center;gap:6px;background:#fff;border:1px solid var(--border);
+               border-radius:20px;padding:6px 16px;font-size:12px;font-weight:600;color:var(--text-mid);
+               text-decoration:none;transition:all .25s;}
+    .hero-chip:hover{border-color:var(--blue);color:var(--blue);transform:translateY(-2px);}
+
+    /* ── SECTIONS ── */
+    .feature-wrap:nth-child(odd)  .feature-sec{background:var(--white);}
+    .feature-wrap:nth-child(even) .feature-sec{background:#f4f7fe;}
+    .feature-sec{padding:96px 0;border-bottom:1px solid var(--border);
+                 opacity:0;transform:translateY(28px);
+                 transition:opacity .6s cubic-bezier(.77,0,.175,1),transform .6s cubic-bezier(.77,0,.175,1);}
+    .feature-sec.visible{opacity:1;transform:translateY(0);}
+    .container{max-width:1080px;margin:0 auto;padding:0 32px;}
+    .grid2{display:grid;grid-template-columns:1fr 1fr;gap:70px;align-items:center;}
+    .grid2.flip{direction:rtl;} .grid2.flip>*{direction:ltr;}
+    .tag{display:inline-block;font-size:11px;font-weight:700;text-transform:uppercase;
+         letter-spacing:.7px;color:var(--orange);background:rgba(242,101,34,.1);
+         border-radius:20px;padding:3px 12px;margin-bottom:14px;}
+    .feature-text h2{font-size:27px;font-weight:500;color:var(--heading);line-height:1.3;margin-bottom:12px;}
+    .feature-text p{font-size:14px;color:var(--text-mid);line-height:1.8;margin-bottom:22px;}
+    .bullets{list-style:none;display:flex;flex-direction:column;gap:9px;}
+    .bullets li{display:flex;gap:10px;align-items:flex-start;font-size:13.5px;color:var(--text-dark);line-height:1.6;}
+    .chk{width:17px;height:17px;min-width:17px;border-radius:50%;background:var(--blue);
+         display:flex;align-items:center;justify-content:center;margin-top:2px;flex-shrink:0;}
+    .chk svg{width:8px;height:8px;}
+
+    /* ══════════════════════════════════
+       KENESTO DIALOG CHROME
+       Matches the real app screenshots
+    ══════════════════════════════════ */
+    .k-dialog{border-radius:8px;overflow:hidden;box-shadow:0 32px 80px rgba(0,0,0,.28),0 4px 16px rgba(0,0,0,.12);
+              border:1px solid #888;max-width:100%;}
+    .k-titlebar{background:var(--dlg-bar);padding:9px 12px;
+                display:flex;align-items:center;gap:8px;user-select:none;}
+    .k-logo-sq{width:22px;height:22px;flex-shrink:0;display:flex;align-items:center;justify-content:center;}
+    .k-logo-sq img{display:block;width:22px;height:22px;}
+    .k-win-title{flex:1;text-align:center;font-size:11px;font-weight:700;color:rgba(255,255,255,.9);
+                 letter-spacing:.5px;text-transform:uppercase;}
+    .k-win-btns{display:flex;gap:4px;margin-left:4px;}
+    .k-win-btn{width:18px;height:18px;border:1px solid rgba(255,255,255,.4);border-radius:2px;
+               display:flex;align-items:center;justify-content:center;
+               color:rgba(255,255,255,.7);font-size:9px;cursor:pointer;}
+    .k-body{background:#fff;padding:18px 20px;}
+
+    /* ── TABLE COMMON ── */
+    .k-tbl{width:100%;border-collapse:collapse;font-size:12px;}
+    .k-tbl th{padding:7px 6px;text-align:center;font-size:11px;font-weight:700;
+              color:#444;border-bottom:2px solid #ccc;border-top:1px solid #ddd;background:#f5f5f5;}
+    .k-tbl th:first-child{text-align:left;}
+    .k-tbl td{padding:7px 6px;text-align:center;border-bottom:1px solid #eee;vertical-align:middle;}
+    .k-tbl td:first-child{text-align:left;}
+    .k-tbl tr:hover td{background:#f9f9f9;}
+    .k-tbl tr.hl-row td{background:#dbeafe;}
+
+    /* Radio & checkbox look */
+    .k-radio{width:14px;height:14px;border-radius:50%;border:2px solid #aaa;
+             display:inline-block;vertical-align:middle;}
+    .k-radio.on{border-color:#1B3F8F;box-shadow:inset 0 0 0 3px #fff,inset 0 0 0 7px #1B3F8F;}
+    .k-check{width:13px;height:13px;border:2px solid #aaa;border-radius:2px;
+             display:inline-block;vertical-align:middle;position:relative;}
+    .k-check.on{border-color:#1B3F8F;background:#1B3F8F;}
+    .k-check.on::after{content:'✓';position:absolute;top:-1px;left:1px;
+                       font-size:9px;color:#fff;font-weight:900;}
+
+    /* Icon buttons */
+    .k-icon-btn{background:none;border:none;cursor:pointer;color:#555;font-size:14px;padding:2px;}
+    .k-icon-btn:hover{color:var(--orange);}
+
+    /* ── VERSION CONTROL DIALOG ── */
+    .vc-scroll{max-height:220px;overflow-y:auto;border:1px solid #ddd;border-radius:2px;}
+    .vc-scroll::-webkit-scrollbar{width:8px;}
+    .vc-scroll::-webkit-scrollbar-track{background:#f3f3f3;}
+    .vc-scroll::-webkit-scrollbar-thumb{background:#bbb;border-radius:4px;}
+    .vc-footer{display:flex;align-items:center;justify-content:space-between;
+               margin-top:12px;padding-top:10px;border-top:1px solid #eee;}
+    .vc-count{font-size:12px;color:#888;text-align:right;flex:1;}
+    .vc-btns{display:flex;gap:8px;}
+    .k-btn{padding:5px 18px;border:1px solid #bbb;border-radius:2px;background:#fff;
+           font-size:12px;font-weight:600;color:#555;cursor:pointer;font-family:'Open Sans',sans-serif;
+           transition:all .15s;}
+    .k-btn:hover{background:#f0f0f0;border-color:#999;}
+    .k-btn.disabled{opacity:.4;pointer-events:none;}
+    .eye-icon{color:#555;font-size:14px;}
+    .dl-icon{color:#555;font-size:14px;}
+    .desc-cell{display:flex;align-items:center;gap:4px;}
+    .desc-input{border:1px solid #ccc;border-radius:2px;padding:2px 5px;
+                font-size:11px;width:80px;color:#888;font-family:'Open Sans',sans-serif;}
+    .pencil-btn{border:1px solid #ccc;border-radius:2px;padding:2px 5px;
+                background:#fff;cursor:pointer;font-size:11px;color:#666;}
+
+    /* ── SHARING DIALOG ── */
+    .share-top-row{display:flex;align-items:center;gap:8px;margin-bottom:14px;}
+    .share-select-box{flex:1;border:1px solid #ccc;border-radius:3px;padding:6px 10px;
+                      font-size:12px;color:#999;display:flex;align-items:center;
+                      justify-content:space-between;gap:6px;}
+    .share-select-x{color:#aaa;font-size:12px;cursor:pointer;}
+    .share-select-arr{color:#555;font-size:10px;}
+    .share-add-btn{width:30px;height:30px;border:1px solid #ccc;border-radius:3px;
+                   background:#fff;display:flex;align-items:center;justify-content:center;
+                   font-size:18px;color:#555;cursor:pointer;font-weight:300;}
+    .share-add-btn:hover{background:#f0f0f0;}
+    .share-section-lbl{font-size:13px;font-weight:700;color:#333;margin-bottom:8px;}
+    .user-avatar{width:24px;height:24px;border-radius:50%;background:#bbb;
+                 display:flex;align-items:center;justify-content:center;color:#fff;font-size:9px;}
+    .date-field{display:flex;align-items:center;gap:3px;border:1px solid #ccc;
+                border-radius:2px;padding:2px 6px;font-size:10px;color:#999;
+                white-space:nowrap;}
+    .cal-icon{width:14px;height:14px;border:1px solid #aaa;border-radius:1px;
+              background:#f5f5f5;display:flex;align-items:center;justify-content:center;
+              font-size:8px;color:#555;font-weight:700;}
+    .remove-x{color:#888;font-size:12px;cursor:pointer;font-weight:700;}
+    .remove-x:hover{color:#e00;}
+    .share-footer{display:flex;justify-content:flex-end;gap:8px;
+                  margin-top:14px;padding-top:10px;border-top:1px solid #eee;}
+
+    /* ── FILE LOCKING: context menu ── */
+    .ctx-wrapper{background:#f0f0f0;border-radius:4px;padding:12px;
+                 display:flex;gap:16px;align-items:flex-start;min-height:220px;}
+    .ctx-bg-folders{display:flex;gap:14px;flex-wrap:wrap;align-items:flex-start;padding-top:8px;}
+    .ctx-folder{display:flex;flex-direction:column;align-items:center;gap:4px;
+                width:68px;cursor:pointer;}
+    .ctx-folder.selected .folder-icon-wrap{background:rgba(59,91,219,.15);
+                                            border:1px solid rgba(59,91,219,.4);border-radius:3px;}
+    .folder-icon-wrap{padding:4px;border:1px solid transparent;border-radius:3px;}
+    .folder-svg{width:44px;height:36px;}
+    .ctx-folder-name{font-size:11px;color:#333;text-align:center;white-space:nowrap;}
+    .ctx-menu{background:#fff;border:1px solid #ccc;box-shadow:0 4px 16px rgba(0,0,0,.18);
+              border-radius:3px;min-width:200px;font-size:12px;color:#333;flex-shrink:0;}
+    .ctx-item{padding:5px 16px;cursor:pointer;display:flex;align-items:center;
+              justify-content:space-between;gap:8px;white-space:nowrap;}
+    .ctx-item:hover{background:#e8e8e8;}
+    .ctx-item.kenesto-item{font-weight:700;display:flex;align-items:center;gap:6px;}
+    .ctx-item.has-sub{justify-content:space-between;}
+    .ctx-sep{height:1px;background:#ddd;margin:3px 0;}
+    .k-menu-icon{width:16px;height:16px;border-radius:2px;flex-shrink:0;overflow:hidden;}
+    .k-menu-icon img{width:16px;height:16px;display:block;}
+    .sub-arrow{color:#888;font-size:10px;}
+    /* Submenu */
+    .submenu-wrap{position:relative;display:flex;}
+    .ctx-submenu{background:#fff;border:1px solid #ccc;box-shadow:4px 4px 16px rgba(0,0,0,.18);
+                 border-radius:3px;min-width:190px;font-size:12px;flex-shrink:0;}
+    .ctx-sub-item{padding:5px 14px;cursor:pointer;white-space:nowrap;}
+    .ctx-sub-item:hover{background:#e8e8e8;}
+    .ctx-sub-item.highlighted{background:rgba(242,101,34,.12);color:var(--orange);font-weight:700;}
+
+    /* ── ADD TASK DIALOG ── */
+    .task-form{display:flex;flex-direction:column;gap:10px;}
+    .task-row{display:grid;grid-template-columns:1fr 1fr;gap:10px;}
+    .task-field label{display:block;font-size:11.5px;font-weight:600;color:#444;margin-bottom:4px;}
+    .task-input{width:100%;border:1px solid #ccc;border-radius:2px;padding:6px 8px;
+                font-size:12px;color:#333;font-family:'Open Sans',sans-serif;outline:none;}
+    .task-input:focus{border-color:var(--blue);}
+    .task-select-box{width:100%;border:1px solid #ccc;border-radius:2px;padding:6px 8px;
+                     font-size:12px;color:#555;background:#fff;cursor:pointer;
+                     display:flex;align-items:center;justify-content:space-between;}
+    .task-textarea{width:100%;border:1px solid #ccc;border-radius:2px;padding:6px 8px;
+                   font-size:12px;color:#aaa;font-family:'Open Sans',sans-serif;
+                   resize:none;height:56px;outline:none;}
+    .date-picker-btn{display:flex;align-items:center;justify-content:space-between;
+                     border:1px solid #ccc;border-radius:2px;padding:5px 8px;
+                     font-size:12px;color:#999;background:#fff;cursor:pointer;gap:6px;}
+    .cal-sq{width:18px;height:18px;border:1px solid #aaa;border-radius:2px;
+            background:#f5f5f5;display:flex;align-items:center;justify-content:center;
+            font-size:9px;font-weight:700;color:#555;flex-shrink:0;}
+    .task-divider{border:none;border-top:1px solid #ddd;margin:4px 0;}
+    .attach-btn{display:inline-flex;align-items:center;gap:6px;padding:5px 14px;
+                border:1px solid #ccc;border-radius:2px;font-size:12px;color:#555;
+                background:#fff;cursor:pointer;font-family:'Open Sans',sans-serif;}
+    .attach-btn:hover{background:#f5f5f5;}
+    .task-files-tbl{width:100%;border-collapse:collapse;font-size:12px;margin-top:8px;}
+    .task-files-tbl th{text-align:left;padding:5px 8px;background:#f5f5f5;
+                       border:1px solid #ddd;font-size:11px;font-weight:700;color:#444;}
+    .task-files-tbl td{padding:6px 8px;border:1px solid #eee;vertical-align:middle;}
+    .access-select{border:1px solid #ccc;border-radius:2px;padding:3px 6px;
+                   font-size:11px;background:#fff;color:#555;cursor:pointer;}
+    .trash-btn{color:#5b8dd9;font-size:14px;cursor:pointer;background:none;border:none;}
+    .trash-btn:hover{color:#c0392b;}
+    .task-footer{display:flex;justify-content:flex-end;gap:8px;
+                 margin-top:14px;padding-top:10px;border-top:1px solid #eee;}
+
+    /* ── WORKFLOW MOCKUP ── */
+    .wf-wrap{display:flex;flex-direction:column;gap:0;}
+    .wf-row{display:flex;align-items:center;gap:10px;}
+    .wf-line{width:2px;height:18px;background:#dde3f0;margin-left:14px;}
+    .wf-node{width:28px;height:28px;min-width:28px;border-radius:50%;color:#fff;
+             display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:800;}
+    .wf-card{flex:1;background:#f7f9ff;border:1px solid var(--border);border-radius:5px;
+             padding:8px 12px;display:flex;align-items:center;justify-content:space-between;}
+    .wf-name{font-size:12.5px;font-weight:700;color:#333;}
+    .wf-who{font-size:11px;color:#888;}
+    .wf-s{font-size:10px;font-weight:700;padding:2px 9px;border-radius:50px;}
+    .wf-s.done{background:rgba(34,197,94,.12);color:#16a34a;}
+    .wf-s.active{background:rgba(242,101,34,.12);color:var(--orange);}
+    .wf-s.pending{background:rgba(0,0,0,.07);color:#888;}
+
+    /* ── CATEGORIES MOCKUP ── */
+    .cat-list{display:flex;flex-direction:column;gap:7px;margin-bottom:14px;}
+    .cat-row{display:flex;align-items:center;gap:10px;background:#f7f9ff;
+             border:1px solid var(--border);border-radius:5px;padding:9px 12px;}
+    .cat-row .fname{flex:1;font-size:12.5px;font-weight:600;color:#333;}
+    .cat-tag{font-size:10px;font-weight:700;padding:2px 10px;border-radius:50px;}
+    .cloud-wrap{display:flex;flex-wrap:wrap;gap:7px;}
+    .cloud-t{font-size:12px;font-weight:600;padding:5px 12px;border-radius:6px;cursor:pointer;
+             transition:all .2s;}
+    .cloud-t:hover{transform:translateY(-2px);box-shadow:0 4px 10px rgba(0,0,0,.1);}
+
+    /* ── VIEWER SECTION ── */
+    .viewer-sec{background:var(--bg-page);
+                padding:80px 0;border-bottom:1px solid var(--border);
+                opacity:0;transform:translateY(28px);
+                transition:opacity .6s cubic-bezier(.77,0,.175,1),transform .6s cubic-bezier(.77,0,.175,1);}
+    .viewer-sec.visible{opacity:1;transform:translateY(0);}
+    .viewer-text .tag{color:var(--orange);}
+    .viewer-text h2{color:var(--heading);font-size:27px;font-weight:800;line-height:1.3;margin-bottom:12px;}
+    .viewer-text p{color:var(--text-mid);font-size:14px;line-height:1.8;margin-bottom:22px;}
+    .viewer-text .bullets li{color:var(--text-dark);}
+    .viewer-text .chk{background:var(--blue);}
+    .viewer-shell{border-radius:6px;overflow:hidden;
+                  box-shadow:0 20px 60px rgba(27,63,143,.18);border:1px solid #c8c8c8;
+                  background:#fff;}
+    /* Title bar removed – no top bar needed, matches screenshot */
+    #viewer-canvas{display:block;width:100%;height:320px;cursor:grab;background:#fff;}
+    #viewer-canvas:active{cursor:grabbing;}
+    .viewer-hint{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);
+                 font-size:11px;font-weight:600;color:rgba(0,0,0,.22);
+                 pointer-events:none;white-space:nowrap;transition:opacity .5s;}
+    .viewer-wrap{position:relative;}
+
+    /* Axis indicator (bottom-left) */
+    .viewer-axis{position:absolute;bottom:48px;left:10px;z-index:5;pointer-events:none;}
+    .axis-lbl{font-size:9px;font-weight:700;display:flex;align-items:center;gap:2px;line-height:1.4;}
+
+    /* Navigation cube (top-right) */
+    .viewer-navcube{position:absolute;top:6px;right:6px;z-index:5;pointer-events:none;
+                    width:64px;height:64px;}
+
+    /* Pencil/sketch icon (top-left) */
+    .viewer-sketch-icon{position:absolute;top:6px;left:6px;z-index:5;pointer-events:none;
+                        width:22px;height:22px;background:#e8e8e8;border:1px solid #bbb;
+                        border-radius:3px;display:flex;align-items:center;justify-content:center;}
+
+    /* Bottom toolbar */
+    .viewer-toolbar{background:#f2f2f2;border-top:1px solid #d0d0d0;
+                    padding:5px 10px;display:flex;align-items:center;gap:2px;}
+    .vtb-btn{width:32px;height:28px;background:none;border:none;cursor:default;
+             border-radius:3px;display:flex;align-items:center;justify-content:center;
+             color:#555;font-size:13px;transition:background .15s;}
+    .vtb-btn:hover{background:#ddd;}
+    .vtb-sep{width:1px;height:18px;background:#c8c8c8;margin:0 3px;}
+
+    /* ── CTA ── */
+    .cta-sec{background:linear-gradient(135deg,var(--bg-light) 0%,var(--bg-page) 100%);
+             border-top:1px solid var(--border);padding:90px 32px;text-align:center;}
+    .cta-sec h2{font-size:34px;font-weight:700;color:var(--heading);margin-bottom:14px;}
+    .cta-sec p{font-size:17px;color:var(--text-mid);margin-bottom:36px;}
+    .btn-cta{display:inline-block;background:var(--orange);color:#fff;padding:15px 44px;
+             border-radius:4px;font-size:15px;font-weight:600;text-decoration:none;
+             transition:all .25s;}
+    .btn-cta:hover{background:#d9581c;}
+    .btn-cta-demo{display:inline-block;background:transparent;color:var(--blue);padding:15px 44px;
+                  border-radius:4px;font-size:15px;font-weight:600;text-decoration:none;
+                  border:2px solid var(--blue);transition:all .25s;}
+    .btn-cta-demo:hover{background:var(--blue);color:#fff;}
+
+    /* ── FOOTER ── */
+    footer{background:linear-gradient(135deg,var(--bg-light) 0%,var(--bg-page) 100%);border-top:1px solid var(--border);padding:22px 32px;
+           display:flex;align-items:center;justify-content:space-between;}
+    footer span{font-size:12px;color:var(--text-light);}
+    .footer-logo img{height:28px;}
+
+    /* ── RESPONSIVE ── */
+    @media(max-width:860px){
+      .grid2{grid-template-columns:1fr;gap:36px;}
+      .grid2.flip{direction:ltr;}
+      .hero h1{font-size:28px;}
+      #viewer-canvas{height:260px;}
+    }
+    ::-webkit-scrollbar{width:5px;}
+    ::-webkit-scrollbar-thumb{background:var(--blue);border-radius:3px;}
+  </style>
+</head>
+<body>
+
+
+<!-- ── HERO ── -->
+<section class="hero">
+  <div class="hero-badge">✦ All Features</div>
+  <h1>Everything you need to manage<br>documents <span class="accent">the way CAD teams do</span></h1>
+  <p>Version control, smart sharing, file locking, tasks, workflows, categories and a built-in viewer   all in one platform.</p>
+  <div class="hero-ctas">
+    <a class="btn btn-primary" href="https://www.kenesto.com/sign-up" target="_blank" rel="noopener">Start Free 14-Day Trial</a>
+    <a class="btn btn-outline" href="https://calendly.com/kenesto-sales/new-meeting" target="_blank" rel="noopener">Book a Demo</a>
+  </div>
+  <div class="hero-chips">
+    <a class="hero-chip" href="#version-control">🔄 Version Control</a>
+    <a class="hero-chip" href="#share">🔗 Share</a>
+    <a class="hero-chip" href="#file-locking">🔒 File Locking</a>
+    <a class="hero-chip" href="#task">✅ Tasks</a>
+    <a class="hero-chip" href="#workflow">⚡ Workflow</a>
+    <a class="hero-chip" href="#categories">🏷️ Categories</a>
+    <a class="hero-chip" href="#viewer">🎯 Viewer</a>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════
+     1   VERSION CONTROL
+══════════════════════════════════════ -->
+<div class="feature-wrap" id="version-control">
+  <div class="feature-sec">
+    <div class="container">
+      <div class="grid2">
+        <div class="feature-text">
+          <div class="tag">Version Control</div>
+          <h2>Every save, permanently preserved</h2>
+          <ul class="bullets">
+            <li><span class="chk"><svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="3.5"><polyline points="20 6 9 17 4 12"/></svg></span>A new version is saved on every document save, automatically</li>
+            <li><span class="chk"><svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="3.5"><polyline points="20 6 9 17 4 12"/></svg></span>Unlimited version history   no caps, ever</li>
+            <li><span class="chk"><svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="3.5"><polyline points="20 6 9 17 4 12"/></svg></span>Restore any past version as the current one in one click</li>
+            <li><span class="chk"><svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="3.5"><polyline points="20 6 9 17 4 12"/></svg></span>Add a description to any version for context</li>
+            <li><span class="chk"><svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="3.5"><polyline points="20 6 9 17 4 12"/></svg></span>Download or preview any version in the built-in viewer</li>
+          </ul>
+        </div>
+        <!-- VERSION CONTROL DIALOG -->
+        <div class="k-dialog">
+          <div class="k-titlebar">
+            <div class="k-logo-sq"><svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg"><rect width="100" height="100" fill="#F26522"/><rect x="26" y="18" width="14" height="64" fill="white"/><polygon points="38,50 62,18 78,18 54,50" fill="white"/><polygon points="38,50 54,50 78,82 62,82" fill="white"/></svg></div>
+            <div class="k-win-title">DOCUMENTS VERSIONS</div>
+            <div class="k-win-btns">
+              <div class="k-win-btn">□</div>
+              <div class="k-win-btn">✕</div>
+            </div>
+          </div>
+          <div class="k-body">
+            <div style="font-size:13px;font-weight:700;color:#333;margin-bottom:10px">Pump_Assembly_Rev3.sldasm Versions</div>
+            <div class="vc-scroll" style="overflow-x:auto">
+              <table class="k-tbl" style="min-width:600px">
+                <thead>
+                  <tr>
+                    <th style="width:26px">View</th>
+                    <th>Name</th>
+                    <th>Description</th>
+                    <th>Size</th>
+                    <th>Modified By</th>
+                    <th>Date Modified</th>
+                    <th style="width:40px">Version</th>
+                    <th style="width:50px">Current</th>
+                    <th style="width:40px">Download</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td><span class="eye-icon">👁</span></td>
+                    <td style="font-size:11px">Pump_Assembly_Rev3.sldasm</td>
+                    <td><div class="desc-cell"><input class="desc-input" value="" placeholder=""><button class="pencil-btn">✏️</button></div></td>
+                    <td style="font-size:11px;white-space:nowrap">34.37kB</td>
+                    <td style="font-size:11px">Maya Tsur</td>
+                    <td style="font-size:11px;white-space:nowrap">30/03/2026 15:33:40</td>
+                    <td style="font-size:11.5px;font-weight:700">306</td>
+                    <td style="text-align:center"><span class="k-radio on"></span></td>
+                    <td style="text-align:center"><span class="dl-icon">⬇</span></td>
+                  </tr>
+                  <tr>
+                    <td><span class="eye-icon">👁</span></td>
+                    <td style="font-size:11px">Pump_Assembly_Rev3.sldasm</td>
+                    <td><div class="desc-cell"><input class="desc-input" value="" placeholder=""><button class="pencil-btn">✏️</button></div></td>
+                    <td style="font-size:11px;white-space:nowrap">34.38kB</td>
+                    <td style="font-size:11px">Maya Tsur</td>
+                    <td style="font-size:11px;white-space:nowrap">25/03/2026 13:19:05</td>
+                    <td style="font-size:11.5px;font-weight:700">305</td>
+                    <td style="text-align:center"><span class="k-radio"></span></td>
+                    <td style="text-align:center"><span class="dl-icon">⬇</span></td>
+                  </tr>
+                  <tr>
+                    <td><span class="eye-icon">👁</span></td>
+                    <td style="font-size:11px">Pump_Assembly_Rev3.sldasm</td>
+                    <td><div class="desc-cell"><input class="desc-input" value="" placeholder=""><button class="pencil-btn">✏️</button></div></td>
+                    <td style="font-size:11px;white-space:nowrap">34.39kB</td>
+                    <td style="font-size:11px">John Carter</td>
+                    <td style="font-size:11px;white-space:nowrap">17/03/2026 17:09:54</td>
+                    <td style="font-size:11.5px;font-weight:700">304</td>
+                    <td style="text-align:center"><span class="k-radio"></span></td>
+                    <td style="text-align:center"><span class="dl-icon">⬇</span></td>
+                  </tr>
+                  <tr>
+                    <td><span class="eye-icon">👁</span></td>
+                    <td style="font-size:11px">Pump_Assembly_Rev3.sldasm</td>
+                    <td><div class="desc-cell"><input class="desc-input" value="" placeholder=""><button class="pencil-btn">✏️</button></div></td>
+                    <td style="font-size:11px;white-space:nowrap">34.19kB</td>
+                    <td style="font-size:11px">Maya Tsur</td>
+                    <td style="font-size:11px;white-space:nowrap">15/03/2026 14:53:04</td>
+                    <td style="font-size:11.5px;font-weight:700">303</td>
+                    <td style="text-align:center"><span class="k-radio"></span></td>
+                    <td style="text-align:center"><span class="dl-icon">⬇</span></td>
+                  </tr>
+                  <tr>
+                    <td><span class="eye-icon">👁</span></td>
+                    <td style="font-size:11px">Pump_Assembly_Rev3.sldasm</td>
+                    <td><div class="desc-cell"><input class="desc-input" value="" placeholder=""><button class="pencil-btn">✏️</button></div></td>
+                    <td style="font-size:11px;white-space:nowrap">34.15kB</td>
+                    <td style="font-size:11px">Maya Tsur</td>
+                    <td style="font-size:11px;white-space:nowrap">12/03/2026 13:07:59</td>
+                    <td style="font-size:11.5px;font-weight:700">302</td>
+                    <td style="text-align:center"><span class="k-radio"></span></td>
+                    <td style="text-align:center"><span class="dl-icon">⬇</span></td>
+                  </tr>
+                  <tr>
+                    <td><span class="eye-icon">👁</span></td>
+                    <td style="font-size:11px">Pump_Assembly_Rev3.sldasm</td>
+                    <td><div class="desc-cell"><input class="desc-input" value="" placeholder=""><button class="pencil-btn">✏️</button></div></td>
+                    <td style="font-size:11px;white-space:nowrap">34.01kB</td>
+                    <td style="font-size:11px">Maya Tsur</td>
+                    <td style="font-size:11px;white-space:nowrap">11/03/2026 16:02:20</td>
+                    <td style="font-size:11.5px;font-weight:700">300</td>
+                    <td style="text-align:center"><span class="k-radio"></span></td>
+                    <td style="text-align:center"><span class="dl-icon">⬇</span></td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+            <div class="vc-footer">
+              <div class="vc-count">304 Item</div>
+              <div class="vc-btns">
+                <button class="k-btn disabled">🔀 Compare Two Versions</button>
+                <button class="k-btn">CLOSE</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════
+     2   SHARE
+══════════════════════════════════════ -->
+<div class="feature-wrap" id="share">
+  <div class="feature-sec">
+    <div class="container">
+      <div class="grid2 flip">
+        <div class="feature-text">
+          <div class="tag">Share</div>
+          <h2>Collaboration without boundaries</h2>
+          <p>Share any document or folder with precisely the permissions you choose — inside your organization or with external guests.</p>
+          <ul class="bullets">
+            <li><span class="chk"><svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="3.5"><polyline points="20 6 9 17 4 12"/></svg></span>Set View Only, Download, Update, or Sharing permissions per user</li>
+            <li><span class="chk"><svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="3.5"><polyline points="20 6 9 17 4 12"/></svg></span>Set an expiration date to automatically revoke access</li>
+            <li><span class="chk"><svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="3.5"><polyline points="20 6 9 17 4 12"/></svg></span>Remove any user's access instantly at any time</li>
+          </ul>
+        </div>
+        <!-- SHARING DIALOG -->
+        <div class="k-dialog">
+          <div class="k-titlebar">
+            <div class="k-logo-sq"><svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg"><rect width="100" height="100" fill="#F26522"/><rect x="26" y="18" width="14" height="64" fill="white"/><polygon points="38,50 62,18 78,18 54,50" fill="white"/><polygon points="38,50 54,50 78,82 62,82" fill="white"/></svg></div>
+            <div class="k-win-title">SHARING</div>
+            <div class="k-win-btns">
+              <div class="k-win-btn">□</div>
+              <div class="k-win-btn">✕</div>
+            </div>
+          </div>
+          <div class="k-body">
+            <div style="font-size:13px;font-weight:700;color:#333;margin-bottom:12px">Share Document: Pump_Assembly_Rev3.sldasm</div>
+            <div class="share-top-row">
+              <div class="share-select-box">
+                <span style="color:#bbb">Select User or Group</span>
+                <div style="display:flex;gap:6px;align-items:center">
+                  <span class="share-select-x">✕</span>
+                  <span class="share-select-arr">▼</span>
+                </div>
+              </div>
+              <div class="share-add-btn">+</div>
+            </div>
+            <div class="share-section-lbl">Customize permissions</div>
+            <table class="k-tbl">
+                <thead>
+                  <tr>
+                    <th style="text-align:left">Users</th>
+                    <th>View Only</th>
+                    <th>Download</th>
+                    <th>Update</th>
+                    <th>Sharing</th>
+                    <th>Remove</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td>Gil Magor</td>
+                    <td><span class="k-radio"></span></td>
+                    <td><span class="k-radio"></span></td>
+                    <td><span class="k-radio on"></span></td>
+                    <td><span class="k-check"></span></td>
+                    <td><span class="remove-x">✕</span></td>
+                  </tr>
+                  <tr class="hl-row">
+                    <td><strong>Adam Lifshiz</strong></td>
+                    <td><span class="k-radio on"></span></td>
+                    <td><span class="k-radio on"></span></td>
+                    <td><span class="k-radio on"></span></td>
+                    <td><span class="k-check on"></span></td>
+                    <td><span class="remove-x">✕</span></td>
+                  </tr>
+                  <tr>
+                    <td>Maya Tsur</td>
+                    <td><span class="k-radio"></span></td>
+                    <td><span class="k-radio"></span></td>
+                    <td><span class="k-radio on"></span></td>
+                    <td><span class="k-check on"></span></td>
+                    <td><span class="remove-x">✕</span></td>
+                  </tr>
+                </tbody>
+              </table>
+            <div class="share-footer">
+              <button class="k-btn disabled">SAVE</button>
+              <button class="k-btn">CLOSE</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════
+     3   FILE LOCKING
+══════════════════════════════════════ -->
+<div class="feature-wrap" id="file-locking">
+  <div class="feature-sec">
+    <div class="container">
+      <div class="grid2">
+        <div class="feature-text">
+          <div class="tag">File Locking</div>
+          <h2>Two powerful locking modes</h2>
+          <p>Prevent accidental overwrites and control concurrent editing with Kenesto's dual locking system   one automatic, one fully manual.</p>
+          <ul class="bullets">
+            <li><span class="chk"><svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="3.5"><polyline points="20 6 9 17 4 12"/></svg></span><strong>Auto Lock:</strong> When someone opens a document, others automatically get View Only access</li>
+            <li><span class="chk"><svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="3.5"><polyline points="20 6 9 17 4 12"/></svg></span><strong>Vault Mode:</strong> Designate a folder as a Vault and use Check-Out / Check-In for full manual control</li>
+            <li><span class="chk"><svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="3.5"><polyline points="20 6 9 17 4 12"/></svg></span>Checked-out files are fully locked until the user checks them back in</li>
+            <li><span class="chk"><svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="3.5"><polyline points="20 6 9 17 4 12"/></svg></span>See who has a file checked out at any moment</li>
+          </ul>
+        </div>
+        <!-- FILE LOCKING: Windows right-click context menu replica -->
+        <div class="ctx-wrapper">
+          <!-- Background folders -->
+          <div class="ctx-bg-folders">
+            <!-- Vault folder (orange with safe icon) - selected -->
+            <div class="ctx-folder selected">
+              <div class="folder-icon-wrap">
+                <svg class="folder-svg" viewBox="0 0 44 36">
+                  <!-- folder shape orange (vault) -->
+                  <path d="M2 8 Q2 4 6 4 L18 4 L21 8 L38 8 Q42 8 42 12 L42 32 Q42 34 40 34 L4 34 Q2 34 2 32 Z" fill="#E87722"/>
+                  <path d="M2 12 L42 12 L42 32 Q42 34 40 34 L4 34 Q2 34 2 32 Z" fill="#F5952A"/>
+                  <!-- safe icon circle -->
+                  <circle cx="22" cy="23" r="7" fill="none" stroke="#fff" stroke-width="2"/>
+                  <circle cx="22" cy="23" r="3" fill="#fff" opacity=".6"/>
+                  <!-- handle -->
+                  <line x1="29" y1="23" x2="32" y2="23" stroke="#fff" stroke-width="2" stroke-linecap="round"/>
+                </svg>
+              </div>
+              <span class="ctx-folder-name">Pump Assemblies</span>
+            </div>
+            <!-- Regular folder -->
+            <div class="ctx-folder">
+              <div class="folder-icon-wrap">
+                <svg class="folder-svg" viewBox="0 0 44 36"><path d="M2 8 Q2 4 6 4 L18 4 L21 8 L38 8 Q42 8 42 12 L42 32 Q42 34 40 34 L4 34 Q2 34 2 32 Z" fill="#F5C842"/><path d="M2 12 L42 12 L42 32 Q42 34 40 34 L4 34 Q2 34 2 32 Z" fill="#F9D84E"/></svg>
+              </div>
+              <span class="ctx-folder-name">CAD Drawings</span>
+            </div>
+            <div class="ctx-folder">
+              <div class="folder-icon-wrap">
+                <svg class="folder-svg" viewBox="0 0 44 36"><path d="M2 8 Q2 4 6 4 L18 4 L21 8 L38 8 Q42 8 42 12 L42 32 Q42 34 40 34 L4 34 Q2 34 2 32 Z" fill="#F5C842"/><path d="M2 12 L42 12 L42 32 Q42 34 40 34 L4 34 Q2 34 2 32 Z" fill="#F9D84E"/></svg>
+              </div>
+              <span class="ctx-folder-name">BOM Reports</span>
+            </div>
+          </div>
+          <!-- Context menu + submenu -->
+          <div style="display:flex;gap:0;margin-top:12px">
+            <div class="ctx-menu">
+              <div class="ctx-item" style="font-weight:700">Open</div>
+              <div class="ctx-item">Open in new tab</div>
+              <div class="ctx-item">Open in new window</div>
+              <div class="ctx-sep"></div>
+              <div class="ctx-item kenesto-item has-sub" style="background:#e8e8e8">
+                <div style="display:flex;align-items:center;gap:6px">
+                  <div class="k-menu-icon"><svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg"><rect width="100" height="100" fill="#F26522"/><rect x="26" y="18" width="14" height="64" fill="white"/><polygon points="38,50 62,18 78,18 54,50" fill="white"/><polygon points="38,50 54,50 78,82 62,82" fill="white"/></svg></div> Kenesto
+                </div>
+                <span class="sub-arrow">▶</span>
+              </div>
+              <div class="ctx-sep"></div>
+              <div class="ctx-item">Give access to <span class="sub-arrow">▶</span></div>
+              <div class="ctx-item">Restore previous versions</div>
+              <div class="ctx-sep"></div>
+              <div class="ctx-item">Cut</div>
+              <div class="ctx-item">Copy</div>
+              <div class="ctx-item">Delete</div>
+            </div>
+            <div class="ctx-submenu">
+              <div class="ctx-sub-item">PDFBilt Actions</div>
+              <div class="ctx-sub-item">Make Content Searchable</div>
+              <div class="ctx-sub-item">Search Text Inside Folder</div>
+              <div class="ctx-sub-item">Set Category</div>
+              <div class="ctx-sub-item">Set Vault to Regular Folder</div>
+              <div class="ctx-sub-item">Check Out All</div>
+              <div class="ctx-sub-item highlighted">Check In All</div>
+              <div class="ctx-sub-item">Checked-Out Files</div>
+              <div class="ctx-sub-item">Share</div>
+              <div class="ctx-sub-item">Cache Viewer</div>
+              <div class="ctx-sub-item">Search</div>
+              <div class="ctx-sub-item">Flush Cache</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════
+     4   TASK
+══════════════════════════════════════ -->
+<div class="feature-wrap" id="task">
+  <div class="feature-sec">
+    <div class="container">
+      <div class="grid2 flip">
+        <div class="feature-text">
+          <div class="tag">Tasks</div>
+          <h2>Assign work, track progress</h2>
+          <p>Create tasks directly inside Kenesto and link them to the exact documents they relate to. Keep your entire team aligned   internal and external   without switching tools.</p>
+          <ul class="bullets">
+            <li><span class="chk"><svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="3.5"><polyline points="20 6 9 17 4 12"/></svg></span>Create tasks with name, priority, description, start and due dates</li>
+            <li><span class="chk"><svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="3.5"><polyline points="20 6 9 17 4 12"/></svg></span>Assign to any internal team member or external user</li>
+            <li><span class="chk"><svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="3.5"><polyline points="20 6 9 17 4 12"/></svg></span>Attach specific documents to any task</li>
+            <li><span class="chk"><svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="3.5"><polyline points="20 6 9 17 4 12"/></svg></span>Set High, Normal, or Low priority levels</li>
+          </ul>
+        </div>
+        <!-- ADD TASK DIALOG -->
+        <div class="k-dialog">
+          <div class="k-titlebar">
+            <div class="k-logo-sq"><svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg"><rect width="100" height="100" fill="#F26522"/><rect x="26" y="18" width="14" height="64" fill="white"/><polygon points="38,50 62,18 78,18 54,50" fill="white"/><polygon points="38,50 54,50 78,82 62,82" fill="white"/></svg></div>
+            <div class="k-win-title">ADD TASK</div>
+            <div class="k-win-btns">
+              <div class="k-win-btn">□</div>
+              <div class="k-win-btn">✕</div>
+            </div>
+          </div>
+          <div class="k-body">
+            <div style="font-size:15px;font-weight:800;color:#333;margin-bottom:14px">Add Task</div>
+            <div class="task-form">
+              <div class="task-field">
+                <label>Name</label>
+                <input class="task-input" type="text" value="">
+              </div>
+              <div class="task-field">
+                <label>Assignee</label>
+                <div class="task-select-box"><span style="color:#bbb">  select  </span><span>✕ ▼</span></div>
+              </div>
+              <div class="task-field">
+                <label>Priority</label>
+                <div class="task-select-box"><span>Normal</span><span>▼</span></div>
+              </div>
+              <div class="task-field">
+                <label>Description</label>
+                <textarea class="task-textarea" placeholder="Description"></textarea>
+              </div>
+              <div class="task-row">
+                <div class="task-field">
+                  <label>Start Date</label>
+                  <div class="date-picker-btn"><span>Select a date</span><div class="cal-sq">15</div></div>
+                </div>
+                <div class="task-field">
+                  <label>Due Date</label>
+                  <div class="date-picker-btn"><span>Select a date</span><div class="cal-sq">15</div></div>
+                </div>
+              </div>
+            </div>
+            <hr class="task-divider" style="margin:12px 0">
+            <button class="attach-btn">📎 Attach Files</button>
+            <table class="task-files-tbl">
+              <thead>
+                <tr><th>File Name</th><th>Access</th><th>Delete</th></tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td style="font-size:11.5px">EC111 LEVEL 1 PLAN NORTH.dwg</td>
+                  <td><select class="access-select"><option>Edit In Origin</option><option>View Only</option><option>Download</option></select></td>
+                  <td style="text-align:center"><button class="trash-btn">🗑</button></td>
+                </tr>
+              </tbody>
+            </table>
+            <div class="task-footer">
+              <button class="k-btn disabled">ADD</button>
+              <button class="k-btn">CLOSE</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════
+     5   WORKFLOW
+══════════════════════════════════════ -->
+<div class="feature-wrap" id="workflow">
+  <div class="feature-sec">
+    <div class="container">
+      <div class="grid2">
+        <div class="feature-text">
+          <div class="tag">Workflow</div>
+          <h2>Automate your approvals</h2>
+          <p>Design multi-step approval workflows and route documents to the right people at the right time   both inside and outside your organization.</p>
+          <ul class="bullets">
+            <li><span class="chk"><svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="3.5"><polyline points="20 6 9 17 4 12"/></svg></span>Build custom multi-step approval workflows</li>
+            <li><span class="chk"><svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="3.5"><polyline points="20 6 9 17 4 12"/></svg></span>Assign each step to internal or external users</li>
+            <li><span class="chk"><svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="3.5"><polyline points="20 6 9 17 4 12"/></svg></span>Attach documents to any step in the workflow</li>
+            <li><span class="chk"><svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="3.5"><polyline points="20 6 9 17 4 12"/></svg></span>Real-time status tracking at every stage</li>
+          </ul>
+        </div>
+        <div class="k-dialog">
+          <div class="k-titlebar">
+            <div class="k-logo-sq"><svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg"><rect width="100" height="100" fill="#F26522"/><rect x="26" y="18" width="14" height="64" fill="white"/><polygon points="38,50 62,18 78,18 54,50" fill="white"/><polygon points="38,50 54,50 78,82 62,82" fill="white"/></svg></div>
+            <div class="k-win-title">WORKFLOW   Drawing Approval</div>
+            <div class="k-win-btns"><div class="k-win-btn">□</div><div class="k-win-btn">✕</div></div>
+          </div>
+          <div class="k-body">
+            <div class="wf-wrap">
+              <div class="wf-row">
+                <div class="wf-node" style="background:#22c55e">1</div>
+                <div class="wf-card">
+                  <div><div class="wf-name">Submit for Review</div><div class="wf-who">Maya Tsur</div></div>
+                  <span class="wf-s done">✓ Done</span>
+                </div>
+              </div>
+              <div class="wf-line"></div>
+              <div class="wf-row">
+                <div class="wf-node" style="background:#F26522">2</div>
+                <div class="wf-card">
+                  <div><div class="wf-name">Engineering Review</div><div class="wf-who">Gil Magor</div></div>
+                  <span class="wf-s active">⏳ In Progress</span>
+                </div>
+              </div>
+              <div class="wf-line"></div>
+              <div class="wf-row">
+                <div class="wf-node" style="background:#94a3b8">3</div>
+                <div class="wf-card">
+                  <div><div class="wf-name">Final Sign-Off</div><div class="wf-who">Adam Lifshiz</div></div>
+                  <span class="wf-s pending">Pending</span>
+                </div>
+              </div>
+            </div>
+            <div style="display:flex;justify-content:flex-end;gap:8px;margin-top:14px;padding-top:10px;border-top:1px solid #eee">
+              <button class="k-btn">CLOSE</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════
+     6   CATEGORIES
+══════════════════════════════════════ -->
+<div class="feature-wrap" id="categories">
+  <div class="feature-sec">
+    <div class="container">
+      <div class="grid2 flip">
+        <div class="feature-text">
+          <div class="tag">Categories</div>
+          <h2>Organize with smart tags</h2>
+          <p>Assign a category to any folder or document for instant classification. Filter, search, and navigate even the largest document libraries at a glance.</p>
+          <ul class="bullets">
+            <li><span class="chk"><svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="3.5"><polyline points="20 6 9 17 4 12"/></svg></span>Assign one category to any folder or document</li>
+            <li><span class="chk"><svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="3.5"><polyline points="20 6 9 17 4 12"/></svg></span>Filter your library by category instantly</li>
+            <li><span class="chk"><svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="3.5"><polyline points="20 6 9 17 4 12"/></svg></span>Color-coded tags for at-a-glance recognition</li>
+          </ul>
+        </div>
+        <div class="k-dialog">
+          <div class="k-titlebar">
+            <div class="k-logo-sq"><svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg"><rect width="100" height="100" fill="#F26522"/><rect x="26" y="18" width="14" height="64" fill="white"/><polygon points="38,50 62,18 78,18 54,50" fill="white"/><polygon points="38,50 54,50 78,82 62,82" fill="white"/></svg></div>
+            <div class="k-win-title">CATEGORIES</div>
+            <div class="k-win-btns"><div class="k-win-btn">□</div><div class="k-win-btn">✕</div></div>
+          </div>
+          <div class="k-body">
+            <div class="cat-list">
+              <div class="cat-row">
+                <span style="font-size:20px">📁</span>
+                <span class="fname">CAD Drawings</span>
+                <span class="cat-tag" style="background:rgba(59,91,219,.12);color:#3B5BDB">Design</span>
+              </div>
+              <div class="cat-row">
+                <span style="font-size:20px">📁</span>
+                <span class="fname">BOM Reports</span>
+                <span class="cat-tag" style="background:rgba(34,197,94,.12);color:#16a34a">Manufacturing</span>
+              </div>
+              <div class="cat-row">
+                <span style="font-size:20px">📁</span>
+                <span class="fname">Change Orders</span>
+                <span class="cat-tag" style="background:rgba(242,101,34,.12);color:#F26522">Engineering</span>
+              </div>
+            </div>
+            <div style="font-size:11px;font-weight:700;color:#888;text-transform:uppercase;letter-spacing:.5px;margin-bottom:8px">All Categories</div>
+            <div class="cloud-wrap">
+              <span class="cloud-t" style="background:rgba(59,91,219,.1);color:#3B5BDB">Design</span>
+              <span class="cloud-t" style="background:rgba(34,197,94,.1);color:#16a34a">Manufacturing</span>
+              <span class="cloud-t" style="background:rgba(242,101,34,.1);color:#F26522">Engineering</span>
+              <span class="cloud-t" style="background:rgba(124,58,237,.1);color:#7c3aed">Specifications</span>
+              <span class="cloud-t" style="background:rgba(239,68,68,.1);color:#dc2626">Quality</span>
+              <span class="cloud-t" style="background:rgba(13,148,136,.1);color:#0d9488">Test Reports</span>
+              <span class="cloud-t" style="background:rgba(245,158,11,.1);color:#d97706">Approved</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════
+     7   VIEWER (dark, interactive 3D)
+══════════════════════════════════════ -->
+<section class="viewer-sec" id="viewer">
+  <div class="container">
+    <div class="grid2">
+      <div class="viewer-text">
+        <div class="tag">Built-in Viewer</div>
+        <h2>See everything, install nothing</h2>
+        <p>Kenesto's native viewer renders any file type   from Office documents to complex SolidWorks assemblies   right in the app. No plugins, no installs, no friction.</p>
+        <ul class="bullets">
+          <li><span class="chk"><svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="3.5"><polyline points="20 6 9 17 4 12"/></svg></span>View Word, Excel, PowerPoint and PDF files instantly</li>
+          <li><span class="chk"><svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="3.5"><polyline points="20 6 9 17 4 12"/></svg></span>Render SolidWorks assemblies (.SLDASM) in full 3D</li>
+          <li><span class="chk"><svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="3.5"><polyline points="20 6 9 17 4 12"/></svg></span>Rotate, zoom and pan 3D models interactively   360°</li>
+          <li><span class="chk"><svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="3.5"><polyline points="20 6 9 17 4 12"/></svg></span>Works for internal users and shared external links</li>
+        </ul>
+      </div>
+      <div class="viewer-shell">
+        <div class="viewer-wrap">
+
+          <!-- Pencil/sketch icon top-left (matches SolidWorks viewer chrome) -->
+          <div class="viewer-sketch-icon">
+            <svg width="13" height="13" viewBox="0 0 16 16" fill="none">
+              <rect x="1" y="1" width="14" height="14" rx="1" stroke="#888" stroke-width="1.2" fill="none"/>
+              <line x1="8" y1="1" x2="8" y2="15" stroke="#888" stroke-width="1"/>
+              <line x1="1" y1="8" x2="15" y2="8" stroke="#888" stroke-width="1"/>
+              <circle cx="8" cy="8" r="2" fill="#888"/>
+            </svg>
+          </div>
+
+          <!-- Navigation cube top-right (isometric, matches SolidWorks style) -->
+          <svg class="viewer-navcube" viewBox="0 0 80 80" xmlns="http://www.w3.org/2000/svg">
+            <!-- Top face -->
+            <polygon points="40,10 68,24 40,38 12,24" fill="#e2e4e8" stroke="#a0a4ad" stroke-width="1"/>
+            <!-- Front face -->
+            <polygon points="12,24 40,38 40,66 12,52" fill="#b0b5be" stroke="#8a8f98" stroke-width="1"/>
+            <!-- Right face -->
+            <polygon points="40,38 68,24 68,52 40,66" fill="#c8ccd4" stroke="#a0a4ad" stroke-width="1"/>
+            <!-- Top label -->
+            <text x="40" y="28" text-anchor="middle" font-size="8" fill="#3a3f4a" font-family="Arial,sans-serif" font-weight="bold">TOP</text>
+            <!-- Front label -->
+            <text x="24" y="51" text-anchor="middle" font-size="6.5" fill="#2a2e38" font-family="Arial,sans-serif" font-weight="bold">FRONT</text>
+            <!-- Right label -->
+            <text x="56" y="44" text-anchor="middle" font-size="6" fill="#2a2e38" font-family="Arial,sans-serif" font-weight="bold">RIGHT</text>
+          </svg>
+
+          <!-- XYZ Axis indicator bottom-left -->
+          <div class="viewer-axis">
+            <svg width="70" height="60" viewBox="0 0 70 60">
+              <!-- Z axis (blue, going up-left) -->
+              <line x1="30" y1="40" x2="14" y2="22" stroke="#3a8de8" stroke-width="2"/>
+              <polygon points="14,22 10,28 18,26" fill="#3a8de8"/>
+              <text x="8" y="20" font-size="9" fill="#3a8de8" font-family="Arial,sans-serif" font-weight="bold">Z</text>
+              <!-- Y axis (green, going up) -->
+              <line x1="30" y1="40" x2="30" y2="10" stroke="#2db85e" stroke-width="2"/>
+              <polygon points="30,10 26,17 34,17" fill="#2db85e"/>
+              <text x="26" y="7" font-size="9" fill="#2db85e" font-family="Arial,sans-serif" font-weight="bold">Y</text>
+              <!-- X axis (red, going right) -->
+              <line x1="30" y1="40" x2="62" y2="40" stroke="#e03030" stroke-width="2"/>
+              <polygon points="62,40 55,36 55,44" fill="#e03030"/>
+              <text x="63" y="44" font-size="9" fill="#e03030" font-family="Arial,sans-serif" font-weight="bold">X</text>
+            </svg>
+          </div>
+
+          <div class="viewer-hint" id="viewer-hint">Drag to rotate &nbsp;·&nbsp; Scroll to zoom &nbsp;·&nbsp; Right-click to pan</div>
+          <canvas id="viewer-canvas"></canvas>
+        </div>
+
+        <!-- Bottom toolbar matching SolidWorks-style viewer -->
+        <div class="viewer-toolbar">
+          <!-- Home -->
+          <button class="vtb-btn" title="Home view">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#555" stroke-width="2"><path d="M3 12L12 3l9 9"/><path d="M9 21V12h6v9"/><path d="M3 12v9h18V12"/></svg>
+          </button>
+          <!-- Undo/Back -->
+          <button class="vtb-btn" title="Previous view">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#555" stroke-width="2"><polyline points="9 14 4 9 9 4"/><path d="M20 20v-7a4 4 0 0 0-4-4H4"/></svg>
+          </button>
+          <!-- Parts/Assembly tree -->
+          <button class="vtb-btn" title="Parts list">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#555" stroke-width="2"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/></svg>
+          </button>
+          <div class="vtb-sep"></div>
+          <!-- Search/Zoom to fit -->
+          <button class="vtb-btn" title="Zoom to fit">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#555" stroke-width="2"><circle cx="11" cy="11" r="7"/><line x1="21" y1="21" x2="16.65" y2="16.65"/><line x1="8" y1="11" x2="14" y2="11"/><line x1="11" y1="8" x2="11" y2="14"/></svg>
+          </button>
+          <!-- Select cursor -->
+          <button class="vtb-btn" title="Select">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#555" stroke-width="2"><path d="M5 3l14 9-7 1-3 7z"/></svg>
+          </button>
+          <!-- Orbit/Rotate -->
+          <button class="vtb-btn" title="Orbit">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#555" stroke-width="2"><path d="M12 2a10 10 0 1 0 10 10"/><path d="M12 6V2l4 4-4 4"/></svg>
+          </button>
+          <div class="vtb-sep"></div>
+          <!-- Solid shading -->
+          <button class="vtb-btn" title="Shaded view">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="#888" stroke="#555" stroke-width="1.5"><path d="M12 3a9 9 0 1 0 0 18A9 9 0 0 0 12 3z"/><path d="M12 3c-2 4-2 10 0 18" fill="none" stroke="#aaa" stroke-width="1"/></svg>
+          </button>
+          <!-- Wireframe -->
+          <button class="vtb-btn" title="Wireframe">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#555" stroke-width="1.5"><path d="M12 3a9 9 0 1 0 0 18A9 9 0 0 0 12 3z"/><path d="M3 12h18M12 3c-2.7 4.5-2.7 9.5 0 18M12 3c2.7 4.5 2.7 9.5 0 18"/></svg>
+          </button>
+          <!-- Section/Transparent -->
+          <button class="vtb-btn" title="Transparent">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#555" stroke-width="1.5" stroke-dasharray="3 2"><path d="M12 3a9 9 0 1 0 0 18A9 9 0 0 0 12 3z"/></svg>
+          </button>
+          <div class="vtb-sep"></div>
+          <!-- Screenshot -->
+          <button class="vtb-btn" title="Screenshot">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#555" stroke-width="2"><rect x="3" y="6" width="18" height="14" rx="2"/><circle cx="12" cy="13" r="3"/><path d="M8 6l1.5-3h5L16 6"/></svg>
+          </button>
+          <!-- Settings -->
+          <button class="vtb-btn" title="Settings">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#555" stroke-width="2"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83-2.83l.06-.06A1.65 1.65 0 0 0 4.68 15a1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 2.83-2.83l.06.06A1.65 1.65 0 0 0 9 4.68a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 2.83l-.06.06A1.65 1.65 0 0 0 19.4 9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg>
+          </button>
+          <!-- Link/Share -->
+          <button class="vtb-btn" title="Share link">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#555" stroke-width="2"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/></svg>
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── CTA ── -->
+<section class="cta-sec">
+  <h2>Your files. Your rules. Always under control.</h2>
+  <p>Try Kenesto free for 14 days. Unlimited storage, no credit card required.</p>
+  <div style="display:flex;gap:16px;justify-content:center;flex-wrap:wrap;">
+    <a class="btn-cta" href="https://www.kenesto.com/sign-up" target="_blank" rel="noopener">Start Your Free Trial Today</a>
+    <a class="btn-cta-demo" href="https://calendly.com/kenesto-sales/new-meeting" target="_blank" rel="noopener">Book a Demo</a>
+  </div>
+</section>
+
+<footer>
+  <div class="footer-logo">
+    <img src="https://www.kenesto.com/wp-content/uploads/2021/11/Kenesto_2C_Logo.png" alt="KENESTO">
+  </div>
+  <span>© 2026 Kenesto. All rights reserved.</span>
+</footer>
+
+<!-- THREE.JS -->
+<script src="https://cdn.jsdelivr.net/npm/three@0.128.0/build/three.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/controls/OrbitControls.js"></script>
+<script>
+
+const canvas=document.getElementById('viewer-canvas');
+const hint=document.getElementById('viewer-hint');
+const renderer=new THREE.WebGLRenderer({canvas,antialias:true});
+renderer.setPixelRatio(window.devicePixelRatio);
+renderer.shadowMap.enabled=true;
+renderer.shadowMap.type=THREE.PCFSoftShadowMap;
+renderer.setClearColor(0xffffff);
+
+function resize(){
+  renderer.setSize(canvas.clientWidth,canvas.clientHeight,false);
+  camera.aspect=canvas.clientWidth/canvas.clientHeight;
+  camera.updateProjectionMatrix();
+}
+const camera=new THREE.PerspectiveCamera(42,1,0.1,100);
+camera.position.set(6,4,7);
+const scene=new THREE.Scene();
+
+scene.add(new THREE.AmbientLight(0xffffff,0.55));
+const dir=new THREE.DirectionalLight(0xffffff,1.2);
+dir.position.set(8,14,8);dir.castShadow=true;dir.shadow.mapSize.set(1024,1024);scene.add(dir);
+const fill=new THREE.DirectionalLight(0xd0e8ff,0.4);fill.position.set(-5,3,-5);scene.add(fill);
+const back=new THREE.PointLight(0xffa07a,0.3,20);back.position.set(-4,6,-4);scene.add(back);
+
+const M={
+  alum:  new THREE.MeshStandardMaterial({color:0xa8b2bd,metalness:.85,roughness:.25}),
+  steel: new THREE.MeshStandardMaterial({color:0x5a6472,metalness:.92,roughness:.18}),
+  dark:  new THREE.MeshStandardMaterial({color:0x2e3442,metalness:.8, roughness:.3}),
+  olive: new THREE.MeshStandardMaterial({color:0x6b6e2a,metalness:.15,roughness:.75}),
+  motor: new THREE.MeshStandardMaterial({color:0x8b5cf6,metalness:.55,roughness:.4}),
+  mEnd:  new THREE.MeshStandardMaterial({color:0x3b82f6,metalness:.55,roughness:.4}),
+  red:   new THREE.MeshStandardMaterial({color:0xdc2626,metalness:.3, roughness:.6}),
+  chr:   new THREE.MeshStandardMaterial({color:0xd4d8e0,metalness:.98,roughness:.05}),
+  rub:   new THREE.MeshStandardMaterial({color:0x1a1a1a,metalness:.05,roughness:.95}),
+};
+const asm=new THREE.Group();scene.add(asm);
+function B(w,h,d,m,px=0,py=0,pz=0,rx=0,ry=0,rz=0){const mesh=new THREE.Mesh(new THREE.BoxGeometry(w,h,d),m);mesh.position.set(px,py,pz);mesh.rotation.set(rx,ry,rz);mesh.castShadow=true;mesh.receiveShadow=true;return mesh;}
+function C(rt,rb,h,s,m,px=0,py=0,pz=0,rx=0,ry=0,rz=0){const mesh=new THREE.Mesh(new THREE.CylinderGeometry(rt,rb,h,s),m);mesh.position.set(px,py,pz);mesh.rotation.set(rx,ry,rz);mesh.castShadow=true;return mesh;}
+function S(r,m,px=0,py=0,pz=0){const mesh=new THREE.Mesh(new THREE.SphereGeometry(r,16,12),m);mesh.position.set(px,py,pz);mesh.castShadow=true;return mesh;}
+
+asm.add(B(3.4,.22,2.0,M.alum,0,-.75,0));
+asm.add(B(.28,2.0,.28,M.alum,-.9,.25,0));
+asm.add(B(2.8,.25,.28,M.alum,.4,1.25,0));
+
+const gG=new THREE.Group();gG.position.set(1.2,.4,-.5);gG.rotation.x=Math.PI/2;
+gG.add(new THREE.Mesh(new THREE.TorusGeometry(1.1,.13,12,56),M.dark));
+gG.add(C(.28,.28,.18,24,M.chr));gG.add(C(.10,.10,.28,12,M.steel));
+for(let i=0;i<6;i++){const a=(i/6)*Math.PI*2;const sp=B(.78,.09,.09,M.alum);sp.rotation.z=a;gG.add(sp);}
+for(let i=0;i<32;i++){const a=(i/32)*Math.PI*2;const t=B(.10,.18,.14,M.dark);t.position.set(Math.cos(a)*1.18,Math.sin(a)*1.18,0);t.rotation.z=a;gG.add(t);}
+asm.add(gG);
+
+const sG=new THREE.Group();sG.position.set(-.5,.3,-.3);sG.rotation.x=Math.PI/2;
+sG.add(new THREE.Mesh(new THREE.TorusGeometry(.42,.08,8,32),M.steel));
+sG.add(C(.12,.12,.14,16,M.chr));
+for(let i=0;i<14;i++){const a=(i/14)*Math.PI*2;const t=B(.07,.12,.10,M.steel);t.position.set(Math.cos(a)*.47,Math.sin(a)*.47,0);t.rotation.z=a;sG.add(t);}
+asm.add(sG);
+
+asm.add(C(.38,.38,1.5,24,M.motor,-.28,.22,.25,0,0,Math.PI/2));
+asm.add(C(.38,.42,.12,24,M.mEnd,.52,.22,.25,0,0,Math.PI/2));
+asm.add(C(.38,.42,.12,24,M.mEnd,-1.08,.22,.25,0,0,Math.PI/2));
+for(let i=0;i<5;i++)asm.add(C(.40,.40,.06,24,M.dark,-1.0+i*.32,.22,.25,0,0,Math.PI/2));
+asm.add(S(.16,M.rub,-1.12,.22,.25));
+
+const hG=new THREE.Group();hG.position.set(.1,1.4,0);hG.rotation.z=.22;
+hG.add(B(.26,1.05,.22,M.olive));hG.add(B(.50,.22,.22,M.olive,0,-.52,0));
+hG.add(B(.50,.22,.22,M.olive,0,.52,0));hG.add(S(.17,M.olive,0,.55,0));
+asm.add(hG);
+
+asm.add(B(.18,1.1,.18,M.steel,.9,.0,-.7));asm.add(B(.18,.18,1.0,M.steel,.9,.55,-.2));
+asm.add(C(.06,.06,1.1,10,M.chr,.5,.4,-.45,0,0,.3));asm.add(C(.06,.06,.8,10,M.chr,-.2,.1,.0,.4,0,0));
+asm.add(S(.11,M.red,1.0,-.55,.35));asm.add(S(.11,M.red,-.1,-.55,-.2));
+asm.add(B(.18,.10,.36,M.red,.9,-.65,.2));
+[[.9,1.25,-.15],[1.9,1.25,-.15],[-.9,1.25,-.15],[.9,-.65,.7],[.9,-.65,-.7],[-.9,-.65,.7],[-.9,-.65,-.7]].forEach(([x,y,z])=>asm.add(S(.06,M.chr,x,y,z)));
+
+const grid=new THREE.GridHelper(8,16,0xcccccc,0xe8e8e8);
+grid.position.y=-.87;scene.add(grid);
+
+const controls=new THREE.OrbitControls(camera,renderer.domElement);
+controls.enableDamping=true;controls.dampingFactor=.07;
+controls.minDistance=3;controls.maxDistance=18;controls.target.set(0,.2,0);controls.update();
+
+let autoRot=true;
+canvas.addEventListener('mousedown',()=>{hint.style.opacity='0';autoRot=false;},{once:true});
+canvas.addEventListener('touchstart',()=>{hint.style.opacity='0';autoRot=false;},{once:true});
+
+const clk=new THREE.Clock();
+function animate(){
+  requestAnimationFrame(animate);
+  const t=clk.getElapsedTime();
+  if(autoRot) asm.rotation.y=t*.22;
+  gG.rotation.z=t*.8;sG.rotation.z=-t*2.1;
+  controls.update();resize();renderer.render(scene,camera);
+}
+animate();
+</script>
+
+<!-- SCROLL + NAV -->
+<script>
+const io=new IntersectionObserver(entries=>entries.forEach(e=>{if(e.isIntersecting)e.target.classList.add('visible');}),{threshold:.1});
+document.querySelectorAll('.feature-sec,.viewer-sec').forEach(el=>io.observe(el));
+
+// Smooth scroll for all anchor links
+document.querySelectorAll('a[href^="#"]').forEach(a=>{
+  a.addEventListener('click',e=>{
+    const id=a.getAttribute('href').slice(1);
+    const target=document.getElementById(id);
+    if(target){e.preventDefault();target.scrollIntoView({behavior:'smooth',block:'start'});}
+  });
+});
+
+const secs=document.querySelectorAll('[id]');
+const navAs=document.querySelectorAll('.nav-links a');
+window.addEventListener('scroll',()=>{
+  let cur='';
+  secs.forEach(s=>{if(window.scrollY>=s.offsetTop-90)cur=s.id;});
+  navAs.forEach(a=>a.classList.toggle('active',a.getAttribute('href')==='#'+cur));
+},{passive:true});
+</script>
+</body>
+</html>
